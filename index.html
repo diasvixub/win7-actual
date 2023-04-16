@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Справка / Win7 Actual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <style>
+        html {
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: inherit;
+            font-family: 'Roboto', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover {
+            color: cornflowerblue;
+        }
+        h2 {
+            padding: 20px 0;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        header {
+            background-color: lightgray;
+        }        
+        .container {
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav {
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 30px;
+        }
+        .logo {
+            max-width: 64px;
+        }
+        ol > li{
+            padding: 5px 0;
+        }
+        p {
+            line-height: 1.5;
+            text-align: justify;
+            margin: 15px 0;
+        }
+        p > a {
+            color: cornflowerblue;
+            font-weight: bold;
+        }
+        .content > ol:last-child {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><img src="favicon.ico" class="logo"></li>
+                    <li><h1>Win7 Actual</h1></li>
+                </ul>
+                <ul>
+                    <li><h1><a href="https://github.com/diasvixub" target="_blank">GitHub</a></h1></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="content">
+                <h2>Возможности скрипта</h2>
+                <ol>
+                    <li><a href="#rus">Русификация системы</a></li>
+                    <li><a href="#upd">Установка обновлений в автономном режиме</a></li>
+                    <li><a href="#certs">Обновление корневых сертификатов</a></li>
+                    <li><a href="#libs">Установка необходимых библиотек для работы программ</a></li>
+                    <li><a href="#prog">Установка дополнительных программ</a></li>
+                    <li><a href="#boost">Оптимизация Windows</a></li>
+                    <li><a href="#clean">Очистка временных файлов</a></li>
+                </ol>
+                <h2 id="rus">1. Русификация ситемы</h2>
+                <p>
+                    Русификация системы проводится путем открытия файла <a href="ru/kb2483139.exe">windows6.1-kb2483139-x64-ru-ru_0587eb296a2f04e0d3699650d39b53ee18b97a79.exe</a> в папке <a href="ru/" target="_blank">ru</a>. После открытия файла, в папке появляется файл локализации <a href="#">lp.cab</a>, который будет установлен в систему.
+                </p>
+                <p>
+                    Установка проводится следующими командами:
+                </p>
+                <ol>
+                    <li><i>DISM /Online /Add-Package /PackagePath:"%CD%\lp.cab"</i></li>
+                    <li><i>bcdedit /set {current} locale ru-RU</i></li>
+                    <li><i>bcdboot %WinDir% /l ru-RU</i></li>
+                </ol>
+                <p>
+                    где <a href="#">%CD%</a> - это текущая директория запуска программы. После открытия программой, файл появляется в корневой директории и устанавливается командами выше.
+                </p>
+                <p>
+                    После необходимо удалить следующий раздел в реестре:
+                </p>
+                <ol>
+                    <li><i>HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/MUI/UILanguages/en-US</i></li>
+                </ol>
+                <p>
+                    после чего компьютер нужно перезагрузить. После перезагрузки вас встретит русскоязычный интерфейс.
+                </p>
+                <p>
+                    <i><b>Примечание</b>: установка русской раскладки клавиатуры, даты и времени, региона ставится вручную</i>
+                </p>
+                <h2 id="upd">2. Установка обновлений в автономном режиме</h2>
+                <p>
+                    Обновления подразделяются на два раздела:
+                </p>
+                <ol>
+                    <li><i>Обновление Агента Центра обновления Windows</i></li>
+                    <li><i>Обновления Windows</i></li>
+                </ol>
+                <h2>2.1. Обновление Агента Центра обновления Windows</h2>
+                <p>
+                    Устанавливается с помощью файла <a href="agent/windowsupdateagent-7.6-x64.exe">windowsupdateagent-7.6-x64.exe</a> в папке <a href="agent/" target="_blank">agent</a>. Установка производится в ручном режиме и требует перезагрузку системы после установки.
+                </p>
+                <h2>2.2. Обновления Windows</h2>
+                <p>
+                    Установка обновлений проводится путем установки <a href="#">.msu</a> пакетов с обновлениями, которые лежат в папке <a href="updates/" target="_blank">updates</a>. Программа позволяет динамически добавлять или удалять пакеты обновления, перетаскивая их в соответствующую папку или удаляя их оттуда. 
+                </p>
+                <p>
+                    Список обновлений в обычной поставке программы (60): <a href="updates/" target="_blank">updates</a>
+                </p>
+                <p>
+                    Установка производится с помощью команды: 
+                </p>
+                <ol>
+                    <li><i>wusa.exe updates\{name.msu} /quiet /norestart</i></li>
+                </ol>
+                <p>
+                    где <a href="#">{name.msu}</a> - пакет обновления, параметры: /quiet - тихий режим, /norestart - без перезагрузки.
+                </p>
+                <h2 id="certs">3. Обновление корневых сертификатов</h2>
+                <p>
+                    Обновление корневых сертификатов производится для получения полноценного доступа в интернет. Устаревшие корневые сертификаты могут вызывать следующие проблемы:
+                </p>
+                <ol>
+                    <li><i>Не открываются или выдают предупреждение безопасности некоторые (или все) сайты, работающие по https.</i></li>
+                    <li><i>Некорректная работа отдельных приложений (например, антивирусных систем)</i></li>
+                    <li><i>Ошибки при подключении по удаленному рабочему столу.</i></li>
+                </ol>
+                <p>
+                    Обновление производится с помощью программы <a href="certs/rootsupd.exe">rootsupd.exe</a> и заранее созданного файла с актуальными сертификатами <a href="certs/roots.sst">roots.sst</a>.
+                </p>
+                <h2 id="libs">4. Установка необходимых библиотек для работы программ</h2>
+                <p>
+                    В обычную поставку включены следующие библиотеки:
+                </p>
+                <ol>
+                    <li><i><a href="libs/directx.exe">DirectX</a></i></li>
+                    <li><i><a href="libs/net48.exe">.NET 4.8 Framework</a></i></li>
+                    <li><i><a href="libs/VisualCppRedist.exe">Visual C++ Redist All-in-One</a></i></li>
+                </ol>
+                <p>
+                    При необходимосты вы можете дополнить этот список, просто вставив необходимые библиотеки в папку <a href="libs/" target="_blank">libs</a> и они динамически добавятся в программу.
+                </p>
+                <h2 id="prog">5. Установка дополнительных программ</h2>
+                <p>
+                    В обычную поставку включены следующие программы:
+                </p>
+                <ol>
+                    <li><i><a href="programs/">#</a></i></li>
+                    <li><i><a href="programs/">#</a></i></li>
+                    <li><i><a href="programs/">#</a></i></li>
+                </ol>
+                <p>
+                    При необходимосты вы можете дополнить этот список, просто вставив необходимые программы в папку <a href="programs/" target="_blank">programs</a> и они динамически добавятся в программу.
+                </p>
+                <h2 id="boost">6. Оптимизация Windows</h2>
+                <p>
+                    Оптимизация включает в себя: 
+                </p>
+                <ol>
+                    <li><i>Отключение не нужных компонентов</i></li>
+                    <li><i>Отключение не нужных служб</i></li>
+                    <li><i>Настройка файла подкачки</i></li>
+                    <li><i>Включение отображения расширения файлов</i></li>
+                </ol>
+                <p>
+                    Будут отключены следующие компоненты:
+                </p>
+                <ol>
+                    <li><i>Платформа гаджетов</i></li>
+                    <li><i>Игры</i></li>
+                </ol>
+                <p>
+                    Отключение проводится следующими командами:
+                </p>
+                <ol>
+                    <li><i>Dism /online /Disable-Feature {name-feature} /norestart</i></li>
+                </ol>
+                <p>
+                    Будут отключены следующие службы:
+                </p>
+                <ol>
+                    <li><i>Windows Search</i></li>
+                    <li><i>Windows Archiving</i></li>
+                    <li><i>Tablet PC input service</i></li>
+                    <li><i>Bluetooth Support Service</i></li>
+                    <li><i>BitLocker Disk Encryption Service</i></li>
+                    <li><i>Windows Update</i></li>
+                    <li><i>Shadow copy of the volume</i></li>
+                    <li><i>Smart card</i></li>
+                    <li><i>Windows Defender</i></li>
+                </ol>
+                <p>
+                    Отключение проводится следующими командами:
+                </p>
+                <ol>
+                    <li><i>sc config {name-service} start= disabled</i></li>
+                </ol>
+                <p>
+                    Настройка файла подкачки проводится следующим образом: 
+                </p>
+                <ol>
+                    <li><i>При ОЗУ до 8 ГБ размер файла подкачки устанавливается в 4 ГБ</i></li>
+                    <li><i>При ОЗУ от 8 до 16 ГБ размер файла подкачки устанавливается в 2 ГБ</i></li>
+                    <li><i>При ОЗУ от 16 ГБ размер файла подкачки устанавливается в 1 ГБ</i></li>
+                </ol>
+                <p>
+                    Установка производится следующими командами (для 4 ГБ):
+                </p>
+                <ol>
+                    <li><i>wmic computersystem set AutomaticManagedPagefile=False</i></li>
+                    <li><i>wmic pagefileset where name="C:\\pagefile.sys" set InitialSize={4096},MaximumSize=4096</i></li>
+                </ol>
+                <p>
+                    Включение отображения расширения файлов производится следующей командой:
+                </p>
+                <ol>
+                    <li><i>reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 00000000 /f</i></li>
+                </ol>
+                <h2 id="clean">7. Очистка временных файлов</h2>
+                <p>
+                    Очистка затрагивает следующие каталоги:
+                </p>
+                <ol>
+                    <li><i><a href="C:\Windows\SoftwareDistribution\Download\" target="_blank">C:\Windows\SoftwareDistribution\Download\</a></i></li>
+                    <li><i><a href="C:\Windows\Prefetch\" target="_blank">C:\Windows\Prefetch\</a></i></li>
+                    <li><i><a href="%temp%">%temp%</a></i></li>
+                </ol>
+                <p>
+                    и производится следующими командами:
+                </p>
+                <ol>
+                    <li><i>del C:\Windows\SoftwareDistribution\Download\*.* /s /q >nul 2>&1</i></li>
+                    <li><i>for /d %i in (C:\Windows\SoftwareDistribution\Download\*.*) do @rmdir /s /q "%i" >nul 2>&1</i></li>
+                    <li><i>del C:\Windows\Prefetch\*.* /s /q >nul 2>&1</i></li>
+                    <li><i>for /d %i in (C:\Windows\Prefetch\*.*) do @rmdir /s /q "%i" >nul 2>&1</i></li>
+                    <li><i>del %temp%\*.* /s /q >nul 2>&1</i></li>
+                    <li><i>for /d %i in (%temp%\*.*) do @rmdir /s /q "%i" >nul 2>&1</i></li>
+                </ol>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
